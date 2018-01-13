@@ -1,0 +1,6 @@
+[submodule "emacs/lsp-mode"]
+	path = emacs/lsp-mode
+	url = https://github.com/emacs-lsp/lsp-mode.git
+[submodule "emacs/lsp-javascript"]
+	path = emacs/lsp-javascript
+	url = https://github.com/emacs-lsp/lsp-javascript.git
