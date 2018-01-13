@@ -4,3 +4,6 @@
 [submodule "emacs/lsp-javascript"]
 	path = emacs/lsp-javascript
 	url = https://github.com/emacs-lsp/lsp-javascript.git
+[submodule "servers/javascript-typescript-langserver"]
+	path = servers/javascript-typescript-langserver
+	url = https://github.com/sourcegraph/javascript-typescript-langserver
