@@ -1,6 +1,8 @@
 ;;; lsp-javascript.el --- Testing javascript LSP mode -*- lexical-binding: t; -*-
 
-(toggle-debug-on-error)
+(setq output (create-file-buffer "output.json"))
+
+(setq debug-on-error t)
 
 (when noninteractive
   ;; Skip the first call of kill-emacs in batch mode -- it's emacs
@@ -12,8 +14,8 @@
 (setq repodir (expand-file-name ".." (file-name-directory
                                       (or load-file-name (buffer-file-name)))))
 
-(push (file-truename (concat repodir "servers/javascript-typescript-langserver-npm/node_modules/.bin/")) exec-path)
-(push (file-truename (concat repodir "servers/typescript-language-server-npm/node_modules/.bin/")) exec-path)
+(push (file-truename (concat repodir "/servers/javascript-typescript-langserver-npm/node_modules/.bin/")) exec-path)
+(push (file-truename (concat repodir "/servers/typescript-language-server-npm/node_modules/.bin/")) exec-path)
 
 (let ((default-directory  (expand-file-name "emacs/" repodir)))
   (normal-top-level-add-subdirs-to-load-path))
@@ -62,9 +64,8 @@
   (lsp-javascript-typescript-enable)
   (eldoc-mode t)
   (flycheck-mode)
-  ;; (unless noninteractive
-  ;;   (setq-local eldoc-message-function #'my-eldoc-display-message))
-  )
+  (unless noninteractive
+    (setq-local eldoc-message-function #'my-eldoc-display-message)))
 
 (defun my-hide-pos-tip ()
   (setq my-show-pos-tip nil)
@@ -77,8 +78,7 @@
 (add-hook 'focus-in-hook #'my-unhide-pos-tip)
 (add-hook 'js-mode-hook #'my-js-mode-setup)
 
-(add-to-list 'auto-mode-alist '("\\.jsx" . js-mode))
-(add-to-list 'auto-mode-alist '("\\.ts" . js-mode))
+(add-to-list 'auto-mode-alist '("\\.(j|t)sx?" . js-mode))
 
 (require 'js)
 (define-key js-mode-map (kbd "M-.") #'xref-find-definitions)
@@ -91,6 +91,17 @@
 (forward-line)
 
 ;; (profiler-start 'cpu+mem)
+
+(defun log ()
+  (with-current-buffer output
+    (insert
+     (json-encode `(:y ,(line-number-at-pos)
+                    :x ,(current-column)
+                    :doc ,abc
+                    :code-actions ,lsp-code-actions
+                    :code-lenses ,lsp-code-lenses)))
+    (insert "\n")))
+
 
 (defun advance ()
   (deferred:next
@@ -105,24 +116,34 @@
 (defun step-hover (i)
   (deferred:next
     (lambda ()
-      (if (and (> i 10) (or abc (> i 100)))
+      (if (and (or abc (> i 200)))
           (progn
             (when abc
-              (message "found at %s (%s): %s" i (symbol-at-point) abc))
+              (message "At (%s,%s) in %sms on \"%s\": %s"
+                       (line-number-at-pos) (current-column)
+                       (* i 0.5)
+                       (symbol-at-point)
+                       abc))
+            (log)
+
             (when lsp-code-actions
               (message "found code actions for %s: %s" i (symbol-at-point) lsp-code-actions))
 
             (setq abc nil)
             (advance))
         (deferred:nextc
-          (deferred:wait 5)
+          (deferred:wait 0.5)
           (lambda () (step-hover (1+ i))))))))
 
 (when noninteractive
   (deferred:$
     (step-hover 0)
     (deferred:nextc it
-      (lambda (x) (message "all done::: %s" x) (kill-emacs t)))))
+      (lambda (x)
+        (message "all done::: %s" x)
+        (with-current-buffer output
+          (write-file "output.json"))
+        (kill-emacs t)))))
 
 
 ;; (profiler-write-profile
