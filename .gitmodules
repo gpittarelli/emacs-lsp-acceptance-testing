@@ -7,3 +7,27 @@
 [submodule "servers/javascript-typescript-langserver"]
 	path = servers/javascript-typescript-langserver
 	url = https://github.com/sourcegraph/javascript-typescript-langserver
+[submodule "emacs/company-mode"]
+	path = emacs/company-mode
+	url = https://github.com/company-mode/company-mode.git
+[submodule "emacs/company-quickhelp"]
+	path = emacs/company-quickhelp
+	url = https://github.com/expez/company-quickhelp.git
+[submodule "emacs/pos-tip"]
+	path = emacs/pos-tip
+	url = https://github.com/syohex/pos-tip.git
+[submodule "emacs/company-lsp"]
+	path = emacs/company-lsp
+	url = https://github.com/tigersoldier/company-lsp.git
+[submodule "emacs/s"]
+	path = emacs/s
+	url = https://github.com/magnars/s.el.git
+[submodule "emacs/dash"]
+	path = emacs/dash
+	url = https://github.com/magnars/dash.el.git
+[submodule "emacs/deferred"]
+	path = emacs/deferred
+	url = https://github.com/kiwanami/emacs-deferred.git
+[submodule "emacs/flycheck"]
+	path = emacs/flycheck
+	url = https://github.com/flycheck/flycheck.git
