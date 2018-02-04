@@ -31,3 +31,30 @@
 [submodule "emacs/flycheck"]
 	path = emacs/flycheck
 	url = https://github.com/flycheck/flycheck.git
+[submodule "emacs/lsp-go"]
+	path = emacs/lsp-go
+	url = https://github.com/emacs-lsp/lsp-go.git
+[submodule "emacs/lsp-haskell"]
+	path = emacs/lsp-haskell
+	url = https://github.com/emacs-lsp/lsp-haskell.git
+[submodule "emacs/lsp-rust"]
+	path = emacs/lsp-rust
+	url = https://github.com/emacs-lsp/lsp-rust.git
+[submodule "emacs/lsp-php"]
+	path = emacs/lsp-php
+	url = https://github.com/emacs-lsp/lsp-php.git
+[submodule "emacs/lsp-python"]
+	path = emacs/lsp-python
+	url = https://github.com/emacs-lsp/lsp-python.git
+[submodule "emacs/lsp-ocaml"]
+	path = emacs/lsp-ocaml
+	url = https://github.com/emacs-lsp/lsp-ocaml.git
+[submodule "emacs/lsp-java"]
+	path = emacs/lsp-java
+	url = https://github.com/emacs-lsp/lsp-java.git
+[submodule "servers/haskell-ide-engine"]
+	path = servers/haskell-ide-engine
+	url = https://github.com/haskell/haskell-ide-engine
+[submodule "tests/fixtures/go/Helen"]
+	path = tests/fixtures/go/Helen
+	url = https://github.com/tf2stadium/Helen
