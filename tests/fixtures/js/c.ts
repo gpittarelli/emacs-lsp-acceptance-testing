@@ -15,25 +15,25 @@ var someCoolObject = {
      * asdf
      * asdf
      */
-    bbbc: 3
+  bbbc: 3,
+
+  a:4
 };
 
 someCoolObject.bbb
 
-var x = '';
-
-someCoolObject.bbba;
-
-class Point {
-    constructor(abc, def) {
-        this.abc = abc;
-        this.def = def;
+class ABC {
+    constructor() {
+	      this.something = 1;
     }
 
-    toString() {
-        return `(${this.abc}, ${this.def})`;
+    hello() {
+	      this.some
     }
 }
+
+const x: number = 'hi';
+
 
 /**
  * this is an interesting function
@@ -43,5 +43,5 @@ function abc() {
 }
 
 export default function xyz(x) {
-    return o[x];
+    return someCoolObject[x];
 }

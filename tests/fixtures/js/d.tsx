@@ -20,21 +20,37 @@ var someCoolObject = {
 
 someCoolObject.bbb
 
-var x: number = '';
+var x: number = 'totally a string';
 
 someCoolObject.bbba;
 
-(<div></div>);
+function Data() {
+    return <span />;
+}
 
-// Leave first line blank; cursor will start there
-// so that we can complete global scope
+(<div>
+    Some text
+    {someCoolObject.bbb > 5 ? <Data /> : "text"}
+    <span>inside a span</span>
+</div>);
+
+class Point {
+    constructor(abc, def) {
+        this.abc = abc;
+        this.def = def;
+    }
+
+    toString() {
+        return `(${this.abc}, ${this.def})`;
+    }
+}
+
 /**
  * this is an interesting function
  */
 function abc() {
 
 }
-
 
 export default function xyz(x) {
     return o[x];

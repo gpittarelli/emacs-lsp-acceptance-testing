@@ -15,26 +15,35 @@ var someCoolObject = {
      * asdf
      * asdf
      */
-  bbbc: 3,
-
-  a:4
+    bbbc: 3
 };
 
+someCoolObject.bbb
+
+var x = '';
+
 someCoolObject.bbba;
 
-class ABC {
-    constructor() {
-	this.something = 1;
-    }
-
-    hello() {
-	this.some
-    }
+function Data() {
+    return <span />;
 }
 
-const x: number = 'hi';
+(<div>
+    Some text
+    {someCoolObject.bbb > 5 ? <Data /> : "text"}
+    <span>inside a span</span>
+</div>);
 
-someCoolObject.bbba;
+class Point {
+    constructor(abc, def) {
+        this.abc = abc;
+        this.def = def;
+    }
+
+    toString() {
+        return `(${this.abc}, ${this.def})`;
+    }
+}
 
 // Leave first line blank; cursor will start there
 // so that we can complete global scope
@@ -47,5 +56,5 @@ function abc() {
 
 
 export default function xyz(x) {
-    return someCoolObject[x];
+    return o[x];
 }
