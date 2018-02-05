@@ -1,4 +1,8 @@
 
 .PHONY: update
 update:
-	for f in emacs/*; do pushd $$f; git pull origin master; popd; done
+	ls -d emacs/* | xargs --max-procs=1 -L1 -I "{}" git -C "{}" pull origin master
+
+.PHONY: status
+status:
+	ls -d emacs/* | xargs -L1 -I "{}" git -C {} status
