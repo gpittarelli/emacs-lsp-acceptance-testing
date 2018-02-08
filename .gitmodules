@@ -73,3 +73,6 @@
 [submodule "emacs/go-mode"]
 	path = emacs/go-mode
 	url = https://github.com/dominikh/go-mode.el.git
+[submodule "tests/fixtures/rust/futures"]
+	path = tests/fixtures/rust/futures
+	url = https://github.com/rust-lang-nursery/futures-rs.git
