@@ -106,7 +106,8 @@
 (add-hook 'js-mode-hook #'my-js-mode-setup)
 (add-hook 'go-mode-hook #'my-go-mode-setup)
 
-(add-to-list 'auto-mode-alist '("\\.(j|t)sx?" . js-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx?" . js-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx?" . js-mode))
 (add-to-list 'auto-mode-alist '("\\.hs" . haskell-mode))
 (add-to-list 'auto-mode-alist '("\\.go" . go-mode))
 
@@ -189,15 +190,18 @@
 (provide 'lsp-typescript)
 ;;; lsp-typescript.el ends here
 
+(profiler-start 'cpu+mem)
+(progn 
+(profiler-write-profile
+ (profiler-cpu-profile)
+ "~/run-cpu.profile"
+ nil)
 
-;; (profiler-write-profile
-;;  (profiler-cpu-profile)
-;;  "~/run-cpu.profile"
-;;  nil)
+(profiler-write-profile
+ (profiler-memory-profile)
+ "~/run-mem.profile"
+ nil)
 
-;; (profiler-write-profile
-;;  (profiler-memory-profile)
-;;  "~/run-mem.profile"
-;;  nil)
+(profiler-stop))
 
 ;; (profiler-write-profile profiler-report-profile "~/run.log" t)
