@@ -4,6 +4,13 @@
     <meta charset="UTF-8"/>
     <title>LSP acceptance test viewer</title>
     <style type="text/css">
+     * {box-sizing: border-box;}
+     body {
+         min-width: 100%;
+         min-height: 100%;
+         padding: 0;
+         margin: 0;
+     }
       .char {
         font-size: x-large;
         display: inline-block;
@@ -33,8 +40,32 @@
       function max(a,b) { return a>b? a:b; }
       const $ = document.querySelector.bind(document);
 
-      onload = function () {
-        const value = JSON.parse($('#output').innerText);
+      onload = () => {
+        display(JSON.parse($('#output').innerText));
+          $('#file').addEventListener('change', (e) => {
+              handleFile(e.target.files[0]);
+          });
+          document.body.addEventListener('dragover', e => {
+              e.preventDefault();
+          }, false);
+          document.body.addEventListener('dragenter', e => {
+              e.preventDefault();
+          }, false);
+          document.body.addEventListener('drop', e => {
+              handleFile(e.dataTransfer.files[0]);
+              e.preventDefault();
+          }, false);
+      }
+
+     function handleFile(file) {
+         const reader = new FileReader();
+         reader.onload = e => {
+             display(e.target.result.split('\n').filter(Boolean).map(JSON.parse));
+         };
+         reader.readAsText(file);
+     }
+
+      function display(value) {
         const maxX = value.map(p('x')).reduce(max);
         const maxY = value.map(p('y')).reduce(max);
         let display = '<div>';
@@ -72,6 +103,7 @@
     </script>
   </head>
   <body>
+    <input type="file" id="file" />
     <div id="result"></div>
     <div id="hover"></div>
   </body>
