@@ -50,9 +50,9 @@
 
 ;; autotesting in --batch: easy hooking into eldoc-message
 (when noninteractive
-  (setq abc nil)
+  (setq eldoc-result nil)
   (defun eldoc-message (&rest args)
-    (setq abc args))
+    (setq eldoc-result args))
   (defun eldoc-display-message-p ()
     t))
 
@@ -73,11 +73,14 @@
 
 (defun my-js-mode-setup ()
   (company-mode)
-  (lsp-javascript-typescript-enable)
+  ;;(lsp-javascript-typescript-enable)
   ;;(lsp-javascript-typescript-enable)
   ;;(lsp-javascript-flow-enable)
   (eldoc-mode t)
   (flycheck-mode)
+  ;; (unless noninteractive
+  ;;   (setq-local eldoc-message-function #'my-eldoc-display-message))
+  )
 
 (defun my-rust-mode-setup ()
   (company-mode)
@@ -194,21 +197,18 @@
                          (lambda () default-directory)
                          '("showMessage.sh"))
 
-(provide 'lsp-typescript)
-;;; lsp-typescript.el ends here
+;; (profiler-start 'cpu+mem)
+;; (progn
+;;   (profiler-write-profile
+;;    (profiler-cpu-profile)
+;;    "~/run-cpu.profile"
+;;    nil)
 
-(profiler-start 'cpu+mem)
-(progn 
-(profiler-write-profile
- (profiler-cpu-profile)
- "~/run-cpu.profile"
- nil)
+;;   (profiler-write-profile
+;;    (profiler-memory-profile)
+;;    "~/run-mem.profile"
+;;    nil)
 
-(profiler-write-profile
- (profiler-memory-profile)
- "~/run-mem.profile"
- nil)
-
-(profiler-stop))
+;;   (profiler-stop))
 
 ;; (profiler-write-profile profiler-report-profile "~/run.log" t)
