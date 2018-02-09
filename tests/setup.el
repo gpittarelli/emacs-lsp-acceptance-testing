@@ -137,14 +137,18 @@
 
 (setq output "output-unnamed.json")
 
-(defun log (time)
+(defun strip-text-properties (txt)
+  (set-text-properties 0 (length txt) nil txt)
+  txt)
+
+(defun log (hover-time completion-time completions)
   (let ((msg `(:y
                ,(line-number-at-pos)
                :x ,(current-column)
-               :completions
-               ,(all-completions "" lsp-completions)
+               :completions ,(mapcar 'strip-text-properties completions)
                :char ,(char-after)
-               :time ,time
+               :time ,hover-time
+               :completion-time ,completion-time
                :doc ,eldoc-result
                :code-actions ,lsp-code-actions
                :code-lenses ,lsp-code-lenses)))
@@ -162,8 +166,6 @@
         (funcall eldoc-documentation-function)
         (when (gethash "codeLensProvider" (lsp--server-capabilities))
           (lsp--update-code-lenses))
-        (when (gethash "completionProvider" (lsp--server-capabilities))
-          (setq lsp-completions (lsp--get-completions)))
         (setq prev-time (current-time))
         (step-hover 0)))))
 
@@ -171,9 +173,13 @@
   (deferred:next
     (lambda ()
       (if (and (or eldoc-result (> i 200)))
-          (progn
-            (log (float-time (time-subtract prev-time (current-time))))
+          (let* ((hover-time (float-time (time-subtract (current-time) prev-time)))
+                 (start-completion-time (current-time))
+                 (completions (all-completions "" (caddr (lsp--get-completions))))
+                 (completion-time (float-time (time-subtract (current-time) start-completion-time))))
+            (log hover-time completion-time completions)
             (advance))
+
         (deferred:nextc
           (deferred:wait 0.10)
           (lambda () (step-hover (1+ i))))))))
@@ -190,8 +196,7 @@
           (message "all done::: %s" x)
           (with-current-buffer output
             (write-file (file-truename (concat repodir "/" filename))))
-          ;; (kill-emacs t)
-          )))))
+          (kill-emacs t))))))
 
 (lsp-define-stdio-client lsp-show-message-test "javascript"
                          (lambda () default-directory)
