@@ -31,6 +31,9 @@
 (require 'lsp-java)
 (require 'lsp-php)
 
+(require 'js)
+(require 'haskell-mode)
+(require 'rust-mode)
 (require 'go-mode)
 (require 'company)
 (require 'pos-tip)
@@ -75,6 +78,12 @@
   ;;(lsp-javascript-flow-enable)
   (eldoc-mode t)
   (flycheck-mode)
+
+(defun my-rust-mode-setup ()
+  (company-mode)
+  (lsp-rust-enable)
+  (eldoc-mode t)
+  (flycheck-mode)
   (unless noninteractive
     (setq-local eldoc-message-function #'my-eldoc-display-message)))
 
@@ -103,78 +112,76 @@
 
 (add-hook 'focus-out-hook #'my-hide-pos-tip)
 (add-hook 'focus-in-hook #'my-unhide-pos-tip)
-(add-hook 'js-mode-hook #'my-js-mode-setup)
-(add-hook 'go-mode-hook #'my-go-mode-setup)
 
+(add-hook 'js-mode-hook #'my-js-mode-setup)
 (add-to-list 'auto-mode-alist '("\\.tsx?" . js-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx?" . js-mode))
-(add-to-list 'auto-mode-alist '("\\.hs" . haskell-mode))
+
+(add-hook 'rust-mode-hook #'my-hs-mode-setup)
+(add-to-list 'auto-mode-alist '("\\.rs" . rust-mode))
+
+(add-hook 'go-mode-hook #'my-go-mode-setup)
 (add-to-list 'auto-mode-alist '("\\.go" . go-mode))
 
 (add-hook 'haskell-mode-hook #'my-hs-mode-setup)
 (add-to-list 'auto-mode-alist '("\\.hs" . haskell-mode))
 
-(require 'js)
 (define-key js-mode-map (kbd "M-.") #'xref-find-definitions)
 
 ;; Debugging:
 ;;(setq lsp-print-io t)
 ;;(setq lsp-print-io nil)
-;;(profiler-start 'cpu+mem)
 
 (setq output "output-unnamed.json")
 
 (defun log (time)
-  (let ((msg `(:y ,(line-number-at-pos)
-                  :x ,(current-column)
-                  :char ,(char-after)
-                  :time ,time
-                  :doc ,abc
-                  :code-actions ,lsp-code-actions
-                  :code-lenses ,lsp-code-lenses)))
+  (let ((msg `(:y
+               ,(line-number-at-pos)
+               :x ,(current-column)
+               :completions
+               ,(all-completions "" lsp-completions)
+               :char ,(char-after)
+               :time ,time
+               :doc ,eldoc-result
+               :code-actions ,lsp-code-actions
+               :code-lenses ,lsp-code-lenses)))
     (with-current-buffer output
       (insert (json-encode msg))
       (insert "\n"))))
 
-(defun advance ()
+(defun advance (&optional first-time)
   (deferred:next
     (lambda ()
-      (if (eobp)
-          nil
-        (forward-line)
+      (unless (eobp)
+        (setq eldoc-result nil)
+        (unless first-time
+          (forward-char))
         (funcall eldoc-documentation-function)
-        ;;        (lsp--update-code-lenses)
-
+        (when (gethash "codeLensProvider" (lsp--server-capabilities))
+          (lsp--update-code-lenses))
+        (when (gethash "completionProvider" (lsp--server-capabilities))
+          (setq lsp-completions (lsp--get-completions)))
+        (setq prev-time (current-time))
         (step-hover 0)))))
 
 (defun step-hover (i)
   (deferred:next
     (lambda ()
-      (if (and (or abc (> i 50)))
+      (if (and (or eldoc-result (> i 200)))
           (progn
-            ;; (when abc
-;;               (message "At (%s,%s) in %sms on \"%s\": %s"
-;;                        (line-number-at-pos) (current-column)
-;;                        (* i 0.25)
-;;                        (symbol-at-point)
-;;                        abc))
-            (log (* i 0.25))
-
-            (when lsp-code-actions
-              (message "found code actions for %s: %s" i (symbol-at-point) lsp-code-actions))
-
-            (setq abc nil)
+            (log (float-time (time-subtract prev-time (current-time))))
             (advance))
         (deferred:nextc
-          (deferred:wait 0.25)
+          (deferred:wait 0.10)
           (lambda () (step-hover (1+ i))))))))
 
 (defun run-test (name)
   (let ((filename (concat "lsp-" name ".json")))
     (setq output (create-file-buffer filename))
+    (setq prev-time (current-time))
 
     (deferred:$
-      (step-hover 0)
+      (advance t)
       (deferred:nextc it
         (lambda (x)
           (message "all done::: %s" x)

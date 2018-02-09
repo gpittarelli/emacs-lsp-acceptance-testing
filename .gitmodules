@@ -76,3 +76,6 @@
 [submodule "tests/fixtures/rust/futures"]
 	path = tests/fixtures/rust/futures
 	url = https://github.com/rust-lang-nursery/futures-rs.git
+[submodule "emacs/rust-mode"]
+	path = emacs/rust-mode
+	url = https://github.com/rust-lang/rust-mode.git
