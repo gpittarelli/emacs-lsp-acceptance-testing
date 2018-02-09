@@ -89,12 +89,12 @@
           const val = e.target.dataset.i,
             info = value[parseInt(val, 10)];
 
-          if (!info ||  !info.doc) {
+          if (!info) {
             hover.style.display = 'none';
             return;
           }
 
-          hover.innerHTML = !val ? '' : `<pre>${info.doc}</pre>`;
+          hover.innerHTML = !val ? '' : `${info.time},${info['completion-time']}<br/>Completions: ${(info.completions || []).length}<pre>${info.doc}</pre>`;
           hover.style.display = 'block';
           hover.style.top = (scrollY + e.clientY + 20) + 'px';
           hover.style.left = (scrollX + e.clientX - 20) + 'px';
