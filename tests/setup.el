@@ -122,7 +122,7 @@
 (add-to-list 'auto-mode-alist '("\\.tsx?" . js-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx?" . js-mode))
 
-(add-hook 'rust-mode-hook #'my-hs-mode-setup)
+(add-hook 'rust-mode-hook #'my-rust-mode-setup)
 (add-to-list 'auto-mode-alist '("\\.rs" . rust-mode))
 
 (add-hook 'go-mode-hook #'my-go-mode-setup)
