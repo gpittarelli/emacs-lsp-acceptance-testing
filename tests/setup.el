@@ -14,6 +14,7 @@
 
 (push (file-truename (concat repodir "/servers/javascript-typescript-langserver-npm/node_modules/.bin/")) exec-path)
 (push (file-truename (concat repodir "/servers/typescript-language-server-npm/node_modules/.bin/")) exec-path)
+(push (file-truename (concat repodir "/servers/vscode-css-languageserver-bin-npm/node_modules/.bin/")) exec-path)
 (push (file-truename (concat repodir "/servers/dummy/")) exec-path)
 
 (let ((default-directory  (expand-file-name "emacs/" repodir)))
@@ -25,6 +26,7 @@
 (require 'lsp-javascript-flow)
 (require 'lsp-typescript)
 (require 'lsp-go)
+(require 'lsp-css)
 (require 'lsp-haskell)
 (require 'lsp-rust)
 (require 'lsp-python)
@@ -32,6 +34,7 @@
 (require 'lsp-php)
 
 (require 'js)
+(require 'scss-mode)
 (require 'haskell-mode)
 (require 'rust-mode)
 (require 'go-mode)
@@ -92,6 +95,14 @@
   (unless noninteractive
     (setq-local eldoc-message-function #'my-eldoc-display-message)))
 
+(defun my-css-mode-setup ()
+  (company-mode)
+  (lsp-css-enable)
+  (eldoc-mode t)
+  (flycheck-mode)
+  (unless noninteractive
+    (setq-local eldoc-message-function #'my-eldoc-display-message)))
+
 (defun my-hs-mode-setup ()
   (company-mode)
   (lsp-haskell-enable)
@@ -130,6 +141,9 @@
 
 (add-hook 'haskell-mode-hook #'my-hs-mode-setup)
 (add-to-list 'auto-mode-alist '("\\.hs" . haskell-mode))
+
+(add-hook 'css-mode-hook #'my-css-mode-setup)
+(add-hook 'scss-mode-hook #'my-css-mode-setup)
 
 (define-key js-mode-map (kbd "M-.") #'xref-find-definitions)
 
