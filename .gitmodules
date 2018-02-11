@@ -79,3 +79,12 @@
 [submodule "emacs/rust-mode"]
 	path = emacs/rust-mode
 	url = https://github.com/rust-lang/rust-mode.git
+[submodule "emacs/lsp-css"]
+	path = emacs/lsp-css
+	url = https://github.com/emacs-lsp/lsp-css.git
+[submodule "tests/fixtures/js/Frontend"]
+	path = tests/fixtures/js/Frontend
+	url = https://github.com/tf2stadium/Frontend
+[submodule "emacs/scss-mode"]
+	path = emacs/scss-mode
+	url = https://github.com/antonj/scss-mode.git
