@@ -44,6 +44,8 @@
 (require 'flycheck)
 (require 'lsp-flycheck)
 
+(defmacro comment (&rest body) nil)
+
 (push 'company-lsp company-backends)
 
 (defvar my-show-pos-tip t)
@@ -202,18 +204,19 @@
                          (lambda () default-directory)
                          '("showMessage.sh"))
 
-;; (profiler-start 'cpu+mem)
-;; (progn
-;;   (profiler-write-profile
-;;    (profiler-cpu-profile)
-;;    "~/run-cpu.profile"
-;;    nil)
+(comment
+ (profiler-start 'cpu+mem)
 
-;;   (profiler-write-profile
-;;    (profiler-memory-profile)
-;;    "~/run-mem.profile"
-;;    nil)
+ (progn
+   (profiler-write-profile
+    (profiler-cpu-profile)
+    "~/run-cpu.profile"
+    nil)
 
-;;   (profiler-stop))
+   (profiler-write-profile
+    (profiler-memory-profile)
+    "~/run-mem.profile"
+    nil)
 
-;; (profiler-write-profile profiler-report-profile "~/run.log" t)
+   (profiler-stop))
+ )
