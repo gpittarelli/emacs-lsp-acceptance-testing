@@ -166,8 +166,6 @@
         (unless first-time
           (forward-char))
         (funcall eldoc-documentation-function)
-        (when (gethash "codeLensProvider" (lsp--server-capabilities))
-          (lsp--update-code-lenses))
         (setq prev-time (current-time))
         (step-hover 0)))))
 
@@ -190,6 +188,10 @@
   (let ((filename (concat "lsp-" name ".json")))
     (setq output (create-file-buffer filename))
     (setq prev-time (current-time))
+
+    (when (gethash "codeLensProvider" (lsp--server-capabilities))
+      (setq lens-start-time (current-time))
+      (lsp--update-code-lenses))
 
     (deferred:$
       (advance t)
