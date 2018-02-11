@@ -6,3 +6,7 @@ update:
 .PHONY: status
 status:
 	ls -d emacs/* | xargs -L1 -I "{}" git -C {} status
+
+.PHONY: test
+test:
+	ls tests/lsp-*.el | xargs -L1 -j4 emacs -Q --batch -l tests/setup.el -l
