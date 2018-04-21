@@ -88,3 +88,6 @@
 [submodule "emacs/scss-mode"]
 	path = emacs/scss-mode
 	url = https://github.com/antonj/scss-mode.git
+[submodule "emacs/typescript"]
+	path = emacs/typescript
+	url = https://github.com/ananthakumaran/typescript.el.git
