@@ -9,4 +9,4 @@ status:
 
 .PHONY: test
 test:
-	ls tests/lsp-*.el | xargs -L1 -j4 emacs -Q --batch -l tests/setup.el -l
+	ls tests/lsp-*.el | xargs -L1 -P4 emacs -Q --batch -l tests/setup.el -l
