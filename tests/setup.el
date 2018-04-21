@@ -33,6 +33,9 @@
 (require 'lsp-java)
 (require 'lsp-php)
 
+(unless noninteractive
+  (require 'lsp-ui))
+
 (require 'js)
 (require 'scss-mode)
 (require 'haskell-mode)
@@ -45,7 +48,7 @@
 (require 'company-quickhelp)
 (require 'company-lsp)
 (require 'flycheck)
-(require 'lsp-flycheck)
+(require 'lsp-ui-flycheck)
 
 (defmacro comment (&rest body) nil)
 
@@ -93,7 +96,9 @@
   (eldoc-mode t)
   (flycheck-mode)
   (unless noninteractive
-    (setq-local eldoc-message-function #'my-eldoc-display-message)))
+    ;;(setq-local eldoc-message-function #'my-eldoc-display-message)
+     (lsp-ui-mode)
+     ))
 
 (defun my-css-mode-setup ()
   (company-mode)
