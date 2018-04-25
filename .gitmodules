@@ -91,3 +91,6 @@
 [submodule "emacs/typescript"]
 	path = emacs/typescript
 	url = https://github.com/ananthakumaran/typescript.el.git
+[submodule "tests/fixtures/rust/to-and-from"]
+	path = tests/fixtures/rust/to-and-from
+	url = https://github.com/gpittarelli/to-and-from.git
