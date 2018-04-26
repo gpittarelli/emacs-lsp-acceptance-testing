@@ -94,3 +94,6 @@
 [submodule "tests/fixtures/rust/to-and-from"]
 	path = tests/fixtures/rust/to-and-from
 	url = https://github.com/gpittarelli/to-and-from.git
+[submodule "tests/fixtures/rust/alacritty"]
+	path = tests/fixtures/rust/alacritty
+	url = https://github.com/jwilm/alacritty
