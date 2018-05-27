@@ -79,6 +79,11 @@
   (pos-tip-hide)
   ))))
 
+(lsp-define-stdio-client lsp-R "R"
+                         (lambda () default-directory)
+			 '("R" "--quiet" "--slave" "-e" "languageserver::run()"))
+(add-hook 'R-mode-hook #'lsp-R-enable)
+
 (defun my-js-mode-setup ()
   (company-mode)
   ;;(lsp-javascript-typescript-enable)
