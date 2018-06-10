@@ -97,3 +97,9 @@
 [submodule "tests/fixtures/rust/alacritty"]
 	path = tests/fixtures/rust/alacritty
 	url = https://github.com/jwilm/alacritty
+[submodule "emacs/groovy-mode"]
+	path = emacs/groovy-mode
+	url = https://github.com/Groovy-Emacs-Modes/groovy-emacs-modes.git
+[submodule "tests/fixtures/groovy/groovycsv"]
+	path = tests/fixtures/groovy/groovycsv
+	url = https://github.com/xlson/groovycsv.git
