@@ -118,12 +118,21 @@
      ))
 
 (defun my-css-mode-setup ()
+  (when (eq major-mode 'css-mode)
+    (company-mode)
+    (lsp-css-enable)
+    (eldoc-mode t)
+    (flycheck-mode)
+    (unless noninteractive
+      (lsp-ui-mode))))
+
+(defun my-scss-mode-setup ()
   (company-mode)
-  (lsp-css-enable)
+  (lsp-scss-enable)
   (eldoc-mode t)
   (flycheck-mode)
   (unless noninteractive
-    (setq-local eldoc-message-function #'my-eldoc-display-message)))
+    (lsp-ui-mode)))
 
 (defun my-hs-mode-setup ()
   (company-mode)
@@ -165,7 +174,7 @@
 (add-to-list 'auto-mode-alist '("\\.hs" . haskell-mode))
 
 (add-hook 'css-mode-hook #'my-css-mode-setup)
-(add-hook 'scss-mode-hook #'my-css-mode-setup)
+(add-hook 'scss-mode-hook #'my-scss-mode-setup)
 
 (define-key js-mode-map (kbd "M-.") #'xref-find-definitions)
 
