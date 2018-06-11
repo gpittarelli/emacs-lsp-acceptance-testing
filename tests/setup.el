@@ -33,6 +33,7 @@
 (require 'lsp-java)
 (require 'lsp-php)
 (require 'lsp-groovy)
+(require 'lsp-ruby)
 
 (unless noninteractive
   (require 'lsp-ui))
@@ -114,6 +115,14 @@
   (unless noninteractive
     (lsp-ui-mode)))
 
+(defun my-ruby-mode-setup ()
+  (company-mode)
+  (lsp-ruby-enable)
+  (eldoc-mode t)
+  (flycheck-mode)
+  (unless noninteractive
+    (lsp-ui-mode)))
+
 (defun my-css-mode-setup ()
   (when (eq major-mode 'css-mode)
     (company-mode)
@@ -172,6 +181,8 @@
 
 (add-hook 'css-mode-hook #'my-css-mode-setup)
 (add-hook 'scss-mode-hook #'my-scss-mode-setup)
+
+(add-hook 'ruby-mode-hook #'my-ruby-mode-setup)
 
 (define-key js-mode-map (kbd "M-.") #'xref-find-definitions)
 
