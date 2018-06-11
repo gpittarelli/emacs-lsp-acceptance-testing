@@ -92,7 +92,6 @@
   (eldoc-mode t)
   (flycheck-mode)
   (unless noninteractive
-    ;;(setq-local eldoc-message-function #'my-eldoc-display-message)
     (lsp-ui-mode)))
 (add-hook 'groovy-mode-hook #'my-groovy-mode-setup)
 
@@ -113,9 +112,7 @@
   (eldoc-mode t)
   (flycheck-mode)
   (unless noninteractive
-    ;;(setq-local eldoc-message-function #'my-eldoc-display-message)
-     (lsp-ui-mode)
-     ))
+    (lsp-ui-mode)))
 
 (defun my-css-mode-setup ()
   (when (eq major-mode 'css-mode)
