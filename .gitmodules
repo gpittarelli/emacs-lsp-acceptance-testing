@@ -103,3 +103,6 @@
 [submodule "tests/fixtures/groovy/groovycsv"]
 	path = tests/fixtures/groovy/groovycsv
 	url = https://github.com/xlson/groovycsv.git
+[submodule "emacs/lsp-groovy"]
+	path = emacs/lsp-groovy
+	url = https://github.com/emacs-lsp/lsp-groovy.git
