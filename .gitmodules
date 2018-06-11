@@ -109,3 +109,6 @@
 [submodule "emacs/lsp-ruby"]
 	path = emacs/lsp-ruby
 	url = https://github.com/emacs-lsp/lsp-ruby.git
+[submodule "tests/fixtures/ruby/http"]
+	path = tests/fixtures/ruby/http
+	url = https://github.com/httprb/http.git
