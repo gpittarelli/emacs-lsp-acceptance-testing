@@ -32,6 +32,7 @@
 (require 'lsp-python)
 (require 'lsp-java)
 (require 'lsp-php)
+(require 'lsp-groovy)
 
 (unless noninteractive
   (require 'lsp-ui))
@@ -49,6 +50,7 @@
 (require 'company-lsp)
 (require 'flycheck)
 (require 'lsp-ui-flycheck)
+(require 'groovy-mode)
 
 (defmacro comment (&rest body) nil)
 
@@ -83,6 +85,16 @@
                          (lambda () default-directory)
 			 '("R" "--quiet" "--slave" "-e" "languageserver::run()"))
 (add-hook 'R-mode-hook #'lsp-R-enable)
+
+(defun my-groovy-mode-setup ()
+  (company-mode)
+  (lsp-groovy-enable)
+  (eldoc-mode t)
+  (flycheck-mode)
+  (unless noninteractive
+    ;;(setq-local eldoc-message-function #'my-eldoc-display-message)
+    (lsp-ui-mode)))
+(add-hook 'groovy-mode-hook #'my-groovy-mode-setup)
 
 (defun my-js-mode-setup ()
   (company-mode)
