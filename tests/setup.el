@@ -87,6 +87,11 @@
 			 '("R" "--quiet" "--slave" "-e" "languageserver::run()"))
 (add-hook 'R-mode-hook #'lsp-R-enable)
 
+(lsp-define-stdio-client lsp-dummy "javascript"
+                         (lambda () default-directory)
+			 '("showMessage.sh"))
+
+
 (defun my-groovy-mode-setup ()
   (company-mode)
   (lsp-groovy-enable)
