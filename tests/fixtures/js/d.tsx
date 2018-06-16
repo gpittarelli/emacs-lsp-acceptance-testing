@@ -24,7 +24,7 @@ var x: number = 'totally a string';
 
 someCoolObject.bbba;
 
-function Data() {
+function Data(x: {a: number, b: string}) {
     return <span />;
 }
 

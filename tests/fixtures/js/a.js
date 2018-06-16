@@ -1,3 +1,5 @@
+import {pick} from 'lodash';
+
 /** Some fancy object */
 var someCoolObject = {
     /** this has docs! */
