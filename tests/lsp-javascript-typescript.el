@@ -3,15 +3,17 @@
 (defun my-js-mode-setup ()
   (interactive)
   (company-mode)
-  (lsp-javascript-typescript-enable)
   (eldoc-mode t)
   (flycheck-mode)
-   (unless noninteractive
-     ;;   (setq-local eldoc-message-function #'my-eldoc-display-message)
-     (lsp-ui-mode)
-     )
-  )
+  (lsp-javascript-typescript-enable)
+  (unless noninteractive
+    ;;   (setq-local eldoc-message-function #'my-eldoc-display-message)
+    (lsp-ui-mode)))
 
-(find-file (file-truename (concat repodir "/tests/fixtures/js/a.js")))
+(find-file (file-truename (concat repodir "/tests/fixtures/js/c.ts")))
+
+;; (setq lsp-print-io t)
+
+;; (find-file "~/repos/md/massdrop-1/packages/basecamp/src/components/pages/DropConfig/Description.tsx")
 
 (run-test "javascript-typescript")

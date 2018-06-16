@@ -6,8 +6,9 @@
   (eldoc-mode t)
   (flycheck-mode)
   (unless noninteractive
-    (setq-local eldoc-message-function #'my-eldoc-display-message)))
+;;    (setq-local eldoc-message-function #'my-eldoc-display-message)
+    (lsp-ui-mode)))
 
 (find-file (file-truename (concat repodir "/tests/fixtures/js/d.tsx")))
 
-(run-test "haskell")
+(run-test "typescript")
