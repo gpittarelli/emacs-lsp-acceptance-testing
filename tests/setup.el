@@ -52,6 +52,9 @@
 (require 'flycheck)
 (require 'lsp-ui-flycheck)
 (require 'groovy-mode)
+(require 'ess)
+(require 'ess-site)
+(require 'ess-r-mode)
 
 (defmacro comment (&rest body) nil)
 

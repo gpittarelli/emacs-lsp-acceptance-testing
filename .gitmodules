@@ -112,3 +112,6 @@
 [submodule "tests/fixtures/ruby/http"]
 	path = tests/fixtures/ruby/http
 	url = https://github.com/httprb/http.git
+[submodule "emacs/ess"]
+	path = emacs/ess
+	url = https://github.com/emacs-ess/ESS
