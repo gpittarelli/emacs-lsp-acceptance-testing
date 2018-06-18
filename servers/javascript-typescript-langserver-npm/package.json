@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "javascript-typescript-langserver": "2.9.0"
+    "javascript-typescript-langserver": "2.9.3"
   }
 }
