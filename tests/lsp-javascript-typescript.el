@@ -12,8 +12,4 @@
 
 (find-file (file-truename (concat repodir "/tests/fixtures/js/c.ts")))
 
-;; (setq lsp-print-io t)
-
-;; (find-file "~/repos/md/massdrop-1/packages/basecamp/src/components/pages/DropConfig/Description.tsx")
-
 (run-test "javascript-typescript")
