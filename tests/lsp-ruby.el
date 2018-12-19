@@ -7,4 +7,4 @@
 
 (find-file (file-truename (concat repodir "/tests/fixtures/ruby/http/lib/http/client.rb")))
 
-(run-test "ruby")
+;;(run-test "ruby")

@@ -34,6 +34,7 @@
 (require 'lsp-php)
 (require 'lsp-groovy)
 (require 'lsp-ruby)
+(require 'lsp-bash)
 
 (unless noninteractive
   (require 'lsp-ui))
@@ -115,13 +116,24 @@
   ;;   (setq-local eldoc-message-function #'my-eldoc-display-message))
   )
 
+(require 'lsp-mode)
+(require 'lsp-rust)
+
 (defun my-rust-mode-setup ()
-  (company-mode)
   (lsp-rust-enable)
   (eldoc-mode t)
-  (flycheck-mode)
-  (unless noninteractive
-    (lsp-ui-mode)))
+
+   (lsp-ui-mode)
+  (company-mode)
+   (flycheck-mode)
+  )
+(add-hook 'rust-mode-hook #'my-rust-mode-setup)
+(add-to-list 'auto-mode-alist '("\\.rs" . rust-mode))
+
+
+
+
+
 
 (defun my-ruby-mode-setup ()
   (company-mode)
@@ -129,7 +141,8 @@
   (eldoc-mode t)
   (flycheck-mode)
   (unless noninteractive
-    (lsp-ui-mode)))
+    (lsp-ui-mode))
+  )
 
 (defun my-css-mode-setup ()
   (when (eq major-mode 'css-mode)

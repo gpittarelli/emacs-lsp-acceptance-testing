@@ -115,3 +115,12 @@
 [submodule "emacs/ess"]
 	path = emacs/ess
 	url = https://github.com/emacs-ess/ESS
+[submodule "emacs/julia-mode"]
+	path = emacs/julia-mode
+	url = https://github.com/JuliaEditorSupport/julia-emacs
+[submodule "emacs/ht"]
+	path = emacs/ht
+	url = https://github.com/Wilfred/ht.el
+[submodule "emacs/f"]
+	path = emacs/f
+	url = https://github.com/rejeep/f.el
